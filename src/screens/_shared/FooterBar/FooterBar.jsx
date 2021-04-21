@@ -8,15 +8,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // position: 'absolute',
     top: '100vh',
     left: '0',
     transform: 'translateY(-100%)',
+    height: '40px',
     backgroundColor: '#E1E4E5',
     color: '#607D8B',
     borderTop: '2px solid #C1C6C8 ',
-    height: '40px',
     textAlign: 'center',
+    boxShadow: 'none',
   },
   textContainer: {
     justifyContent: 'center',

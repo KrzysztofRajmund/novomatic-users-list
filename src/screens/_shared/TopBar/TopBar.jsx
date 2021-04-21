@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#617D8B',
     color: '#FFFFFF',
     height: '60px',
+    boxShadow: 'none',
   },
   icon: {
     fontSize: '50px',
