@@ -8,9 +8,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'absolute',
-    bottom: '0',
+    // position: 'absolute',
+    top: '100vh',
     left: '0',
+    transform: 'translateY(-100%)',
     backgroundColor: '#E1E4E5',
     color: '#607D8B',
     borderTop: '2px solid #C1C6C8 ',
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FooterBar() {
   const classes = useStyles();
   return (
-    <AppBar position='static' className={classes.root}>
+    <AppBar position='fixed' className={classes.root}>
       <Container maxWidth='md'>
         <Toolbar className={classes.textContainer}>
           <CopyrightIcon className={classes.icon} />
