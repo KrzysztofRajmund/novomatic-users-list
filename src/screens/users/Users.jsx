@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 // components
 import UsersList from './UsersList';
+//router
+import { Link } from 'react-router-dom';
 //redux
 import { useDispatch } from 'react-redux';
 import { loadUsers } from '../../redux/actions/usersActions';
@@ -28,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '28px',
     color: 'rgba(0,0,0,0.87)',
   },
+  linkTag: {
+    textDecoration: 'none',
+  },
   addButton: {
     height: '36px',
     color: '#FFFFFF',
@@ -44,21 +49,23 @@ const Users = () => {
 
   useEffect(() => {
     dispatch(loadUsers());
+    console.log(loadUsers, 'GET react');
   }, [dispatch]);
 
   return (
     <Container maxWidth='md'>
-      <Box mt={4} clone className={classes.cardsBox}>
+      <Box clone className={classes.cardsBox}>
         <Paper>
           <Box p={2} clone>
             <Typography variant='h3' className={classes.tableHeader}>
               Users
-              <Button variant='contained' className={classes.addButton}>
-                + add users
-              </Button>
+              <Link to='/user/newuser' className={classes.linkTag}>
+                <Button variant='contained' className={classes.addButton}>
+                  + add users
+                </Button>
+              </Link>
             </Typography>
           </Box>
-
           <UsersList />
         </Paper>
       </Box>

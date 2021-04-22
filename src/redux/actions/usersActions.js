@@ -1,17 +1,27 @@
 import { USERS } from '../constants';
 
 const loadUsers = () => ({
-  type: USERS.LOAD
+  type: USERS.LOAD,
 });
 
-const setUsers = posts => ({
+const setUsers = (posts) => ({
   type: USERS.LOAD_SUCCESS,
-  payload: posts
+  payload: posts,
 });
 
-const setError = error => ({
+const setError = (error) => ({
   type: USERS.LOAD_FAIL,
-  payload: error
+  payload: error,
 });
 
-export { loadUsers, setError, setUsers };
+const addUser = (user) => ({
+  type: USERS.ADD_USER,
+  payload: user,
+});
+
+const setAddUser = (newUser) => ({
+  type: USERS.SET_ADD_USER,
+  payload: newUser,
+});
+
+export { loadUsers, setError, setUsers, addUser, setAddUser };

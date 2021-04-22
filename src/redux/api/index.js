@@ -1,17 +1,16 @@
 import axios from 'axios';
 
-const handleError = error => (
+const handleError = (error) =>
   error.response
     ? {
-      error: {
-        error: error.response.status,
-        message: error.response.data,
-      },
-    }
-    : { error }
-);
+        error: {
+          error: error.response.status,
+          message: error.response.data,
+        },
+      }
+    : { error };
 
-const handleSuccess = response => ({
+const handleSuccess = (response) => ({
   data: response.data,
   headers: response.headers,
 });
@@ -30,15 +29,24 @@ const handleSuccess = response => ({
  * get("http://management-api", "?search=bonus", "asd32eD5F");
  */
 export const get = (url, query, token) => {
-  const req = axios
-    .get(
-      encodeURI(url + (query || '')),
-      token && {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  console.log('GET API', url, query, token);
+  const req = axios.get(
+    encodeURI(url + (query || '')),
+    token && {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+    }
+  );
+  console.log('GET req', req);
 
   return req.then(handleSuccess).catch(handleError);
+};
+
+export const requestNewUser = (user) => {
+  console.log('SET API', user);
+  const req = axios.post('https://reqres.in/api/users', user);
+
+  console.log('SET req', req);
+  return req;
 };
