@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
 const UsersList = () => {
   const classes = useStyles();
   const users = useSelector((state) => state.users.data);
-  console.log(users);
+  console.log(users, 'users list');
   return (
     <List>
       {users.map((user) => (

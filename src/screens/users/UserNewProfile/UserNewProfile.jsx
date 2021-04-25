@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+//clsx
+import clsx from 'clsx';
 //material ui
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -12,12 +14,15 @@ import { makeStyles } from '@material-ui/core/styles';
 //router
 import { Link } from 'react-router-dom';
 //redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../redux/actions/usersActions';
 
 const useStyles = makeStyles((theme) => ({
   linkTag: {
     textDecoration: 'none',
+  },
+  disabledLink: {
+    pointerEvents: 'none',
   },
   arrowBack: {
     color: 'rgba(0,0,0,0.54)',
@@ -72,6 +77,9 @@ const UserNewProfile = () => {
   const classes = useStyles();
   //dispatch action
   const dispatch = useDispatch();
+  //new data
+  const newUser = useSelector((state) => state.users);
+  console.log(newUser, '  new user');
   //useState hooks
   const [button, setButton] = useState(true);
   const [user, setUser] = useState({
@@ -107,7 +115,6 @@ const UserNewProfile = () => {
   const submitUser = (e) => {
     e.preventDefault();
     dispatch(addUser(user));
-    console.log(addUser, 'SET react');
   };
 
   return (
@@ -153,15 +160,25 @@ const UserNewProfile = () => {
               onChange={onChangeHandler}
             />
             <ButtonGroup>
-              <Button className={classes.cancelButton}>Cancel</Button>
-              <Button
-                type='submit'
-                variant='contained'
-                className={classes.buttons}
-                disabled={button}
+              <Link to='/' className={classes.linkTag}>
+                <Button className={classes.cancelButton}>Cancel</Button>
+              </Link>
+              <Link
+                to='/'
+                className={clsx(
+                  classes.linkTag,
+                  button && classes.disabledLink
+                )}
               >
-                submit to review
-              </Button>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  className={classes.buttons}
+                  disabled={button}
+                >
+                  submit to review
+                </Button>
+              </Link>
             </ButtonGroup>
           </form>
           {/* </Box> */}

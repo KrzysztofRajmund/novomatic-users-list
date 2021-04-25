@@ -1,5 +1,10 @@
 import { USERS } from '../constants';
 
+// const defaultState = {
+//   data:[],
+//   newUser:{},
+// }
+
 const usersReducer = (state = { data: [] }, action) => {
   switch (action.type) {
     case USERS.LOAD_SUCCESS:
@@ -8,7 +13,7 @@ const usersReducer = (state = { data: [] }, action) => {
     case USERS.LOAD_FAIL:
       return action.payload;
     case USERS.SET_ADD_USER:
-      console.log('SET reducer');
+      console.log('SET reducer', action.payload);
       return action.payload;
     default:
       return state;
