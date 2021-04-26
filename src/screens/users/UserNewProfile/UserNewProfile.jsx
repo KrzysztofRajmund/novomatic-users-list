@@ -48,7 +48,22 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
       width: '50ch',
     },
+    '& .Mui-focused': {
+      color: 'rgba(0,0,0,0.87)',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'rgba(25,25,25,0.32)',
+      },
+      '&:hover fieldset': {
+        borderColor: 'rgba(25,25,25,0.32)',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'rgba(25,25,25,0.32)',
+      },
+    },
   },
+
   content: {
     textAlign: 'left',
     fontSize: '24px',
@@ -154,6 +169,9 @@ const UserNewProfile = () => {
               variant='outlined'
               type='text'
               name='first_name'
+              inputProps={{
+                minLength: 3,
+              }}
               onChange={onChangeHandler}
             />
             <TextField
@@ -162,6 +180,9 @@ const UserNewProfile = () => {
               variant='outlined'
               type='text'
               name='last_name'
+              inputProps={{
+                minLength: 3,
+              }}
               onChange={onChangeHandler}
             />
             <TextField
@@ -170,6 +191,9 @@ const UserNewProfile = () => {
               variant='outlined'
               type='email'
               name='email'
+              inputProps={{
+                minLength: 3,
+              }}
               onChange={onChangeHandler}
             />
             <div className={classes.buttonContainer}>

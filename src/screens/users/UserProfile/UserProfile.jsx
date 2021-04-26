@@ -44,7 +44,22 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
       width: '50ch',
     },
+    '& .Mui-focused': {
+      color: 'rgba(0,0,0,0.87)',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'rgba(25,25,25,0.32)',
+      },
+      '&:hover fieldset': {
+        borderColor: 'rgba(25,25,25,0.32)',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'rgba(25,25,25,0.32)',
+      },
+    },
   },
+
   content: {
     textAlign: 'left',
     fontSize: '24px',
@@ -105,7 +120,7 @@ const UserProfile = () => {
               </Link>
               {filteredUser[0].first_name} {filteredUser[0].last_name}
             </Typography>
-            <form className={classes.form} validate='true' autoComplete='off'>
+            <form className={classes.form} noValidate autoComplete='off'>
               <TextField
                 id='outlined-basic'
                 label='Name'

@@ -12,16 +12,17 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFFFFF',
     height: '60px',
     boxShadow: 'none',
+    padding: '0px',
   },
   icon: {
     fontSize: '50px',
-    textAlign: 'center',
+    margin: '0px 0px 0px -20px',
   },
   title: {
-    textAlign: 'left',
     letterSpacing: '0px',
     lineHeight: '28px',
     fontSize: '24px',
+    margin: '0px 0px 0px 14px',
   },
 }));
 
