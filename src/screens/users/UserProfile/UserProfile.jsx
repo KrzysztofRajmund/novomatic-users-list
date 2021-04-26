@@ -6,7 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { makeStyles } from '@material-ui/core/styles';
 //redux
@@ -16,6 +15,12 @@ import { loadUsers } from '../../../redux/actions/usersActions';
 import { Link, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    '&.MuiContainer-root': {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
   linkTag: {
     textDecoration: 'none',
   },
@@ -25,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
     height: '18px',
   },
   cardsBox: {
+    margin: theme.spacing(2),
+    width: '50ch',
     backgroundColor: '#ffffff',
     borderRadius: '0px',
     margin: '48px 48px 100px 48px',
@@ -33,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
       '0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2)',
   },
   form: {
-    display: 'flex',
-    flexDirection: 'column',
     '& > *': {
       margin: theme.spacing(2),
       width: '50ch',
@@ -45,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '24px',
     lineHeight: '28px',
     color: 'rgba(0,0,0,0.87)',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   buttons: {
     height: '36px',
@@ -75,13 +85,6 @@ const UserProfile = () => {
   useEffect(() => {
     dispatch(loadUsers());
   }, [dispatch]);
-  //useState hooks
-  const [button, setButton] = useState(true);
-  const [user, setUser] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-  });
 
   //get current state
   const allUsers = useSelector((state) => state.users.data);
@@ -91,12 +94,10 @@ const UserProfile = () => {
   const filteredUser = allUsers.filter((user) => user.id === parseInt(userID));
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth='md' className={classes.root}>
       {filteredUser[0] ? (
         <Box clone className={classes.cardsBox}>
           <Paper>
-            {/* <Box p={2} clone> */}
-
             <Typography variant='h3' className={classes.content}>
               <Link to='/' className={classes.linkTag}>
                 {' '}
@@ -129,8 +130,10 @@ const UserProfile = () => {
                 name='email'
                 value={filteredUser[0].email}
               />
-              <ButtonGroup>
-                <Button className={classes.cancelButton}>Cancel</Button>
+              <div className={classes.buttonContainer}>
+                <Link to='/' className={classes.linkTag}>
+                  <Button className={classes.cancelButton}>Cancel</Button>
+                </Link>
                 <Button
                   type='submit'
                   variant='contained'
@@ -139,9 +142,8 @@ const UserProfile = () => {
                 >
                   submit to review
                 </Button>
-              </ButtonGroup>
+              </div>
             </form>
-            {/* </Box> */}
           </Paper>
         </Box>
       ) : (

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-//clsx
-import clsx from 'clsx';
+
 //material ui
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -8,16 +7,21 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { makeStyles } from '@material-ui/core/styles';
 //router
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addUser } from '../../../redux/actions/usersActions';
+import { addUser, getMessage } from '../../../redux/actions/usersActions';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    '&.MuiContainer-root': {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
   linkTag: {
     textDecoration: 'none',
   },
@@ -30,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     height: '18px',
   },
   cardsBox: {
+    margin: theme.spacing(2),
+    width: '50ch',
     backgroundColor: '#ffffff',
     borderRadius: '0px',
     margin: '48px 48px 100px 48px',
@@ -38,8 +44,6 @@ const useStyles = makeStyles((theme) => ({
       '0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2)',
   },
   form: {
-    display: 'flex',
-    flexDirection: 'column',
     '& > *': {
       margin: theme.spacing(2),
       width: '50ch',
@@ -51,6 +55,12 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '28px',
     color: 'rgba(0,0,0,0.87)',
   },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
   buttons: {
     height: '36px',
     color: '#FFFFFF',
@@ -73,12 +83,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserNewProfile = () => {
+  //router
+  let history = useHistory();
   //use styles material ui
   const classes = useStyles();
   //dispatch action
   const dispatch = useDispatch();
   //new data
-  const newUser = useSelector((state) => state.users);
+  const newUser = useSelector((state) => state);
   console.log(newUser, '  new user');
   //useState hooks
   const [button, setButton] = useState(true);
@@ -115,13 +127,14 @@ const UserNewProfile = () => {
   const submitUser = (e) => {
     e.preventDefault();
     dispatch(addUser(user));
+    getMessage();
+    history.push('/');
   };
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth='md' className={classes.root}>
       <Box clone className={classes.cardsBox}>
         <Paper>
-          {/* <Box p={2} clone> */}
           <Typography variant='h3' className={classes.content}>
             <Link to='/' className={classes.linkTag}>
               {' '}
@@ -159,29 +172,20 @@ const UserNewProfile = () => {
               name='email'
               onChange={onChangeHandler}
             />
-            <ButtonGroup>
+            <div className={classes.buttonContainer}>
               <Link to='/' className={classes.linkTag}>
                 <Button className={classes.cancelButton}>Cancel</Button>
               </Link>
-              <Link
-                to='/'
-                className={clsx(
-                  classes.linkTag,
-                  button && classes.disabledLink
-                )}
+              <Button
+                type='submit'
+                variant='contained'
+                className={classes.buttons}
+                disabled={button}
               >
-                <Button
-                  type='submit'
-                  variant='contained'
-                  className={classes.buttons}
-                  disabled={button}
-                >
-                  submit to review
-                </Button>
-              </Link>
-            </ButtonGroup>
+                submit to review
+              </Button>
+            </div>
           </form>
-          {/* </Box> */}
         </Paper>
       </Box>
     </Container>

@@ -37,6 +37,10 @@ const UsersList = () => {
   const classes = useStyles();
   const users = useSelector((state) => state.users.data);
   console.log(users, 'users list');
+
+  //new data
+  const newUser = useSelector((state) => state);
+  console.log(newUser, '  new user message - USERS LIST');
   return (
     <List>
       {users.map((user) => (

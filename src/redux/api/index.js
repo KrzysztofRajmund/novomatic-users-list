@@ -47,6 +47,6 @@ export const requestNewUser = (user) => {
   console.log('SET API', user);
   const req = axios.post('https://reqres.in/api/users', user);
 
-  console.log('SET req', req.status);
+  console.log('SET req', req);
   return req.then(handleSuccess).catch(handleError);
 };

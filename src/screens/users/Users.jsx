@@ -1,20 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 //material ui
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import { Alert } from '@material-ui/lab';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { makeStyles } from '@material-ui/core/styles';
 // components
 import UsersList from './UsersList';
 //router
 import { Link } from 'react-router-dom';
 //redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadUsers } from '../../redux/actions/usersActions';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    position: 'relative',
+  },
   cardsBox: {
     backgroundColor: '#ffffff',
     borderRadius: '0px',
@@ -41,19 +47,45 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '16px',
     letterSpacing: '1.25px',
   },
+  message: {
+    position: 'absolute',
+    zIndex: '90',
+    top: '1%',
+    left: '50%',
+    width: '50%',
+    transform: 'translateX(-50%)',
+    fontSize: '14px',
+    textAlign: 'center',
+  },
 }));
 
 const Users = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  const [open, setOpen] = useState(true);
+  //new message
+  let messageNewUser = useSelector((state) => state.users.message);
   useEffect(() => {
     dispatch(loadUsers());
-    console.log(loadUsers, 'GET react');
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setOpen(true);
+  //   }, 3500);
+  // }, []);
+
+  setTimeout(() => {
+    console.log('message');
+  }, 3500);
+
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth='md' className={classes.root}>
+      {messageNewUser && open ? (
+        <SnackbarContent message={messageNewUser} className={classes.message} />
+      ) : (
+        ''
+      )}
       <Box clone className={classes.cardsBox}>
         <Paper>
           <Box p={2} clone>

@@ -19,9 +19,27 @@ const addUser = (user) => ({
   payload: user,
 });
 
-const setAddUser = (newUser) => ({
+const setAddUser = (newUser, message) => ({
   type: USERS.SET_ADD_USER,
   payload: newUser,
+  message: message,
 });
 
-export { loadUsers, setError, setUsers, addUser, setAddUser };
+const getMessage = () => ({
+  type: USERS.GET_MESSAGE,
+});
+
+const setMessage = (message) => ({
+  type: USERS.SET_MESSAGE,
+  payload: message,
+});
+
+export {
+  loadUsers,
+  setError,
+  setUsers,
+  addUser,
+  setAddUser,
+  getMessage,
+  setMessage,
+};
