@@ -141,8 +141,8 @@ const UserNewProfile = () => {
   //submit form
   const submitUser = (e) => {
     e.preventDefault();
-    dispatch(addUser(user));
     getMessage();
+    dispatch(addUser(user));
     history.push('/');
   };
 

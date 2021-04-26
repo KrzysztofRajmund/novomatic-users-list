@@ -5,8 +5,6 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import { Alert } from '@material-ui/lab';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { makeStyles } from '@material-ui/core/styles';
 // components
@@ -50,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   message: {
     position: 'absolute',
     zIndex: '90',
-    top: '1%',
+    top: '-5%',
     left: '50%',
     width: '50%',
     transform: 'translateX(-50%)',
@@ -62,30 +60,32 @@ const useStyles = makeStyles((theme) => ({
 const Users = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   //new message
   let messageNewUser = useSelector((state) => state.users.message);
   useEffect(() => {
     dispatch(loadUsers());
-  }, [dispatch]);
+  }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setOpen(true);
-  //   }, 3500);
-  // }, []);
-
-  setTimeout(() => {
-    console.log('message');
-  }, 3500);
+  useEffect(() => {
+    setOpen(true);
+    setTimeout(() => {
+      setOpen(false);
+    }, 4000);
+  }, []);
 
   return (
     <Container maxWidth='md' className={classes.root}>
-      {messageNewUser && open ? (
-        <SnackbarContent message={messageNewUser} className={classes.message} />
+      {open && messageNewUser ? (
+        <SnackbarContent
+          className={classes.message}
+          open={open}
+          message={messageNewUser}
+        />
       ) : (
         ''
       )}
+
       <Box clone className={classes.cardsBox}>
         <Paper>
           <Box p={2} clone>
